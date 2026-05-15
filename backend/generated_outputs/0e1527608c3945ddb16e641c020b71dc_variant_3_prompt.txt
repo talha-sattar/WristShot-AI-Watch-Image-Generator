@@ -1,0 +1,44 @@
+Provider: openai-gpt-image
+OpenAI model: gpt-image-2
+Google model: gemini-3.1-flash-image-preview
+
+Edit the uploaded watch image as a strict background-replacement product photo.
+
+TASK:
+Replace or refine ONLY the background/surface behind and around the watch with: deep emerald green velvet cloth with realistic folds, soft nap texture, and premium luxury fabric depth.
+The output should look like premium luxury watch product photography on velvet cloth.
+
+ABSOLUTE WATCH PRESERVATION RULES:
+- Preserve the exact watch from the input image with maximum fidelity.
+- Do not redesign, restyle, redraw, repaint, recolor, rotate, resize, stretch, compress, simplify, or reinterpret the watch.
+- Preserve the exact case shape, bezel geometry, bracelet/strap links, lugs, crown, pushers, crystal, metal color, reflections, and finishing.
+- Preserve the exact dial color, dial text, logo, numbers, markers, date window, subdial, hands, seconds hand, and typography.
+- Preserve the exact time shown on the watch in the input image. Do not move, rotate, shorten, lengthen, or redraw the hour hand, minute hand, or seconds hand.
+- Preserve the date value shown in the date window exactly.
+- Preserve the original camera perspective, lens compression, watch angle, crop logic, and watch placement as much as possible.
+- The model may improve background realism only; the model must not improve or invent watch details.
+
+BACKGROUND RULES:
+- Use only velvet cloth as the background/surface.
+- Green velvet is the default visual direction unless a custom velvet color is explicitly requested.
+- Velvet should have realistic folds, soft fabric nap, gentle highlights, natural texture, and believable contact shadows.
+- The velvet should wrap behind and around the watch naturally without covering, hiding, or altering any watch component.
+- Do not add a watch box, papers, cards, booklets, certificates, human hands, jewelry, tools, or extra accessories.
+
+LIGHTING AND CAMERA:
+- soft controlled studio lighting with clean specular highlights and natural shadows.
+- preserve the original camera angle, crop logic, watch orientation, and perspective as much as possible.
+- Keep the watch sharp, crisp, and highly detailed, especially the dial and hands.
+- Maintain realistic shadows and reflections consistent with the unchanged watch.
+
+BRANDING RULE:
+- No branding reference is uploaded. Do not add AlienTime branding, logos, new text, cards, papers, or any branded object.
+
+VARIANT RULE:
+- Variant 3: More premium shadow depth. Preserve the watch exactly and use elegant velvet drapery with realistic contact shadows under the watch.
+
+NEGATIVE CONSTRAINTS:
+- changed watch design, changed watch identity, changed dial, changed dial text, changed numerals, changed indices, changed hands, changed time, moved hour hand, moved minute hand, moved seconds hand, altered date window, altered subdial, changed case shape, changed bezel, changed bracelet, changed strap, changed crown, changed lugs, changed metal color, warped watch face, distorted geometry, melted bracelet, extra watch, duplicate watch, added logo on watch, removed logo from watch, fake brand text, random text, unreadable dial, blurry dial, soft focus, motion blur, low-detail rendering, messy props, box, papers, cards, booklet, hands, people
+
+FINAL OUTPUT:
+Ultra-realistic luxury watch product photography on velvet cloth, background changed only, watch identity unchanged, exact dial/time/date preserved, sharp commercial quality.
