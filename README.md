@@ -56,6 +56,26 @@ GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_IMAGE_MODEL=gemini-3.1-flash-image-preview
 ```
 
+Alternatively, you can set the API keys directly in your terminal:
+
+**Windows (Command Prompt):**
+```cmd
+set OPENAI_API_KEY=your_openai_api_key_here
+set GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+**Windows (PowerShell):**
+```powershell
+$env:OPENAI_API_KEY="your_openai_api_key_here"
+$env:GEMINI_API_KEY="your_gemini_api_key_here"
+```
+
+**macOS / Linux:**
+```bash
+export OPENAI_API_KEY="your_openai_api_key_here"
+export GEMINI_API_KEY="your_gemini_api_key_here"
+```
+
 Start the FastAPI server:
 ```bash
 python -m uvicorn main:app --reload --port 8000
