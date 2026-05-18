@@ -217,7 +217,7 @@ def build_static_velvet_prompt(settings: PromptSettings, variant_index: int = 0,
     negative_prompt = settings.negative_prompt.strip() or _default_negative_prompt()
 
     variant_rules = [
-        "Variant 1: Clean hero composition. Keep the original watch centered and place it naturally on softly folded green velvet cloth.",
+        "Variant 1: Clean hero composition. Keep the original watch centered and place it naturally on softly folded velvet cloth.",
         "Variant 2: Slightly richer velvet folds. Keep the same watch scale, same orientation, and same dial/time; add deeper fabric texture behind and around the watch only.",
         "Variant 3: More premium shadow depth. Preserve the watch exactly and use elegant velvet drapery with realistic contact shadows under the watch.",
         "Variant 4: Cleaner commercial version. Preserve the watch exactly and use a refined velvet cloth background with minimal folds and strong product clarity.",
@@ -283,7 +283,7 @@ DIAL ACCURACY RULE:
 
 BACKGROUND RULES:
 - Use only velvet cloth as the background/surface.
-- Green velvet is the default visual direction unless a custom velvet color is explicitly requested.
+- The exact velvet color and texture must strictly follow the requested background description: {background}.
 - Velvet should have realistic folds, soft fabric nap, gentle highlights, natural texture, and believable contact shadows.
 - The velvet should wrap behind and around the watch naturally without covering, hiding, or altering any watch component.
 - Do not add a watch box, papers, cards, booklets, certificates, human hands, jewelry, tools, or extra accessories.

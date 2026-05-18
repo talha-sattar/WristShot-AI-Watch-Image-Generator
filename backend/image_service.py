@@ -241,7 +241,7 @@ class ImageService:
                 "filename": image_filename,
                 "prompt": prompt,
                 "variant": variant_number,
-                "provider": provider,
+                "provider": settings.model_provider,
             })
 
         log("Generation completed", {"generated_count": len(results), "provider": provider})

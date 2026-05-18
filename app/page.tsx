@@ -5,6 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import {
   ChevronDown,
   Sparkles,
   Upload,
@@ -163,6 +170,9 @@ export default function AlienTimeStudio() {
   });
 
   const [generatedImages, setGeneratedImages] = useState<GeneratedImage[]>([]);
+  const [regenerateImage, setRegenerateImage] = useState<GeneratedImage | null>(null);
+  const [regeneratePrompt, setRegeneratePrompt] = useState<string>('');
+  const [isRegeneratingSingle, setIsRegeneratingSingle] = useState(false);
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000';
 
   const heroVariationImages = useMemo(
@@ -300,6 +310,72 @@ export default function AlienTimeStudio() {
     }
   };
 
+  const handleSingleRegenerate = async () => {
+    if (!regenerateImage) return;
+
+    if (!formState.watchImage) {
+      alert('Please upload the watch image');
+      return;
+    }
+
+    const endpoint = `${apiBaseUrl}/generate`;
+
+    const formData = new FormData();
+    formData.append('watch_image', formState.watchImage);
+    if (formState.brandingImage) {
+      formData.append('branding_image', formState.brandingImage);
+    }
+    if (formState.dialImage) {
+      formData.append('dial_image', formState.dialImage);
+    }
+    formData.append('selected_style', formState.selectedStyle);
+    formData.append('model_provider', regenerateImage.provider || formState.modelProvider);
+    formData.append('output_count', '1');
+    formData.append('creative_direction', regeneratePrompt || '');
+    formData.append('brand_mode', formState.brandMode);
+    formData.append('dial_reference_mode', formState.dialReferenceMode);
+    formData.append('product_strength', String(formState.productStrength));
+    formData.append('scene_creativity', String(formState.sceneCreativity));
+    formData.append('background_style', formState.backgroundStyle);
+    formData.append('custom_background', formState.customBackground || '');
+    formData.append('camera_angle', formState.cameraAngle);
+    formData.append('lighting_style', formState.lightingStyle);
+    formData.append('supporting_props', JSON.stringify([]));
+    formData.append('negative_prompt', formState.negativePrompt || '');
+    formData.append('aspect_ratio', formState.aspectRatio);
+    formData.append('quality_mode', formState.qualityMode);
+
+    setIsRegeneratingSingle(true);
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data?.detail || `Failed to regenerate image. It might be unavailable.`);
+      }
+
+      const images = Array.isArray(data.images) ? data.images : [];
+      if (images.length > 0) {
+        setGeneratedImages(prev => {
+           const maxVariant = prev.length > 0 ? Math.max(...prev.map(img => img.variant)) : 0;
+           const newImage = { ...images[0], variant: maxVariant + 1 };
+           return [newImage, ...prev];
+        });
+      }
+      setIsRegeneratingSingle(false);
+      setRegenerateImage(null);
+    } catch (error) {
+      console.error('[Frontend] Single Generation failed', error);
+      setIsRegeneratingSingle(false);
+      alert(error instanceof Error ? error.message : 'Something went wrong while regenerating.');
+    }
+  };
+
   const useRecommendedPrompt = () => {
     setFormState(prev => ({
       ...prev,
@@ -408,7 +484,7 @@ export default function AlienTimeStudio() {
         <section id="generate" className="relative px-4 py-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <div className="mb-8 text-center">
-              <h2 className="text-3xl font-bold text-foreground sm:text-4xl">Generate Velvet Product Shoot</h2>
+              <h2 className="text-3xl font-bold text-foreground sm:text-4xl">Generate Product Shoot</h2>
             </div>
 
             <Card className="border-border shadow-lg p-8 space-y-8">
@@ -576,18 +652,6 @@ export default function AlienTimeStudio() {
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="space-y-1">
-                  <label className="text-sm font-semibold text-foreground">Active Style</label>
-                  <p className="text-sm text-foreground/60">
-                    The old multi-style presets are disabled for now. The active style is a single generic velvet-cloth background pipeline.
-                  </p>
-                </div>
-                <div className="rounded-xl border-2 border-primary bg-primary/5 p-4">
-                  <p className="text-sm font-semibold text-foreground">{ACTIVE_STYLE.name}</p>
-                  <p className="mt-1 text-sm text-foreground/60">{ACTIVE_STYLE.description}</p>
-                </div>
-              </div>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div className="space-y-4">
@@ -871,7 +935,10 @@ export default function AlienTimeStudio() {
                           variant="outline"
                           size="sm"
                           className="flex-1 cursor-pointer border-border hover:bg-primary/10 hover:text-primary hover:border-primary"
-                          onClick={handleGenerate}
+                          onClick={() => {
+                            setRegenerateImage(image);
+                            setRegeneratePrompt('');
+                          }}
                         >
                           <RefreshCw className="h-4 w-4 mr-2" />
                           Regenerate
@@ -934,6 +1001,54 @@ export default function AlienTimeStudio() {
             </div>
           </div>
         </footer>
+
+        <Dialog open={!!regenerateImage} onOpenChange={(open) => !open && setRegenerateImage(null)}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Regenerate with Prompt</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid gap-2">
+                <label htmlFor="prompt" className="text-sm font-medium text-foreground">
+                  Prompt
+                </label>
+                <textarea
+                  id="prompt"
+                  value={regeneratePrompt}
+                  onChange={(e) => setRegeneratePrompt(e.target.value)}
+                  className="min-h-[100px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+                  placeholder="Enter a prompt to improve the image..."
+                />
+                <p className="text-xs text-foreground/60">
+                  Refine the prompt to guide the regeneration process and improve your product photo.
+                </p>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => setRegenerateImage(null)}
+                disabled={isRegeneratingSingle}
+              >
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleSingleRegenerate}
+                disabled={isRegeneratingSingle}
+                className="bg-gradient-to-r from-primary to-secondary text-white"
+              >
+                {isRegeneratingSingle ? (
+                  <>
+                    <div className="h-4 w-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Regenerating...
+                  </>
+                ) : (
+                  'Regenerate Image'
+                )}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </main>
     </div>
   );

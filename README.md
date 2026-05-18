@@ -47,10 +47,13 @@ cd backend
 pip install -r requirements.txt
 ```
 
-Create a `.env` file in the backend directory with your OpenAI credentials:
+Create a `.env` file in the backend directory with your OpenAI and Gemini credentials:
 ```env
 OPENAI_API_KEY=your_openai_api_key_here
 OPENAI_IMAGE_MODEL=gpt-image-1
+
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_IMAGE_MODEL=gemini-3.1-flash-image-preview
 ```
 
 Start the FastAPI server:

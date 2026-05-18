@@ -1,0 +1,56 @@
+Provider: openai-gpt-image
+Model: gpt-image-2
+
+Edit the uploaded watch image as a strict background-replacement product photo.
+
+REFERENCE IMAGES:
+- Image A = the full watch/product image. This is the master reference for the whole watch and composition.
+- Image B = the optional dial close-up image. This is the master fidelity reference for the dial only.
+
+TASK:
+Replace or refine ONLY the background/surface behind and around the watch with: royal blue velvet cloth with realistic folds, soft nap texture, and premium luxury fabric depth.
+The output should look like premium luxury watch product photography on velvet cloth.
+
+ABSOLUTE WATCH PRESERVATION RULES:
+- Preserve the exact watch from the input image with maximum fidelity.
+- Do not redesign, restyle, redraw, repaint, recolor, rotate, resize, stretch, compress, simplify, or reinterpret the watch.
+- Preserve the exact case shape, bezel geometry, bracelet/strap links, lugs, crown, pushers, crystal, metal color, reflections, and finishing.
+- Preserve the exact dial color, exact dial texture, exact dial text, exact brand name, exact logo, exact numbers, exact minute-track lines, exact inner lines, exact markers, exact date window, exact subdial, exact hands, exact seconds hand, and exact typography.
+- Preserve the exact time shown on the watch in the input image. Do not move, rotate, shorten, lengthen, or redraw the hour hand, minute hand, or seconds hand.
+- Preserve the date value shown in the date window exactly.
+- Preserve the original camera perspective, lens compression, watch angle, crop logic, and watch placement as much as possible.
+- The model may improve background realism only; the model must not improve, invent, rewrite, blur, or hallucinate watch details.
+
+DIAL ACCURACY RULE:
+- A dial close-up reference image is provided and should be used strongly to improve dial fidelity. Use it to preserve the exact brand name text, logo, minute-track lines, indices, numerals, micro-text, and the exact hand positions/time while keeping the full watch image as the overall watch reference. Avoid blurred, tilted, bent, or deformed dial text or line work.
+- The dial must remain very high-definition, crisp under zoom, and suitable for close inspection.
+- The brand name text on the dial must be perfectly written, perfectly aligned, and not tilted, bent, stretched, or deformed.
+- The minute-track lines, inner line work, indices, and micro typography must stay razor-sharp and legible.
+
+BACKGROUND RULES:
+- Use only velvet cloth as the background/surface.
+- Green velvet is the default visual direction unless a custom velvet color is explicitly requested.
+- Velvet should have realistic folds, soft fabric nap, gentle highlights, natural texture, and believable contact shadows.
+- The velvet should wrap behind and around the watch naturally without covering, hiding, or altering any watch component.
+- Do not add a watch box, papers, cards, booklets, certificates, human hands, jewelry, tools, or extra accessories.
+
+LIGHTING AND CAMERA:
+- soft controlled studio lighting with clean specular highlights and natural shadows.
+- preserve the original camera angle, crop logic, watch orientation, and perspective as much as possible.
+- Keep the watch sharp, crisp, and highly detailed, especially the dial and hands.
+- Maintain realistic shadows and reflections consistent with the unchanged watch.
+
+CLOTH / BRANDING RULE:
+- No branding or cloth reference image is uploaded. Do not add AlienTime branding, logos, new text, cards, papers, or any branded object.
+
+VARIANT RULE:
+- Variant 1: Clean hero composition. Keep the original watch centered and place it naturally on softly folded green velvet cloth.
+
+User direction, apply only if it does not conflict with preserving the watch exactly:
+- change the background velevet color from green to smokey ask grey a shade #E5E9EB is fine and also change the angle of the watch a little also clear teh word 'SWISS' which is above date '24'
+
+NEGATIVE CONSTRAINTS:
+- changed watch design, changed watch identity, changed dial, changed dial text, changed brand name, changed logo, changed numerals, changed indices, changed minute track, changed inner lines, changed hands, changed time, moved hour hand, moved minute hand, moved seconds hand, altered date window, altered subdial, changed case shape, changed bezel, changed bracelet, changed strap, changed crown, changed lugs, changed metal color, warped watch face, distorted geometry, melted bracelet, extra watch, duplicate watch, added logo on watch, removed logo from watch, fake brand text, random text, unreadable dial, blurry dial, low-resolution dial, soft focus, motion blur, tilted text, bent text, deformed typography, broken minute track, smeared lines, low-detail rendering, messy props, box, papers, cards, booklet, hands, people
+
+FINAL OUTPUT:
+Ultra-realistic luxury watch product photography on velvet cloth, background changed only, watch identity unchanged, exact dial/time/date preserved, dial micro-detail preserved, text perfectly legible, sharp commercial quality.
